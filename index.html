@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acoustic Guitar Tuner</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header>
+      <h1>Acoustic Guitar Tuner</h1>
+      <p class="sub">Standard tuning · E A D G B E</p>
+    </header>
+
+    <section class="display" aria-live="polite">
+      <div class="note-row">
+        <div class="target-note" id="targetNote">–</div>
+        <div class="note" id="note">–</div>
+        <div class="octave" id="octave"></div>
+      </div>
+
+      <div class="meter" aria-hidden="true">
+        <div class="ticks">
+          <span class="tick major"></span>
+          <span class="tick"></span>
+          <span class="tick"></span>
+          <span class="tick"></span>
+          <span class="tick center"></span>
+          <span class="tick"></span>
+          <span class="tick"></span>
+          <span class="tick"></span>
+          <span class="tick major"></span>
+        </div>
+        <div class="needle" id="needle"></div>
+        <div class="labels">
+          <span>-50¢</span>
+          <span>0</span>
+          <span>+50¢</span>
+        </div>
+      </div>
+
+      <div class="status" id="status">Press Start and play a string</div>
+
+      <div class="freq-row">
+        <span id="detectedFreq">–</span>
+        <span class="sep">/</span>
+        <span id="targetFreq">–</span>
+        <span class="hz">Hz</span>
+      </div>
+
+      <div class="hint" id="hint"></div>
+    </section>
+
+    <section class="headstock" aria-label="Guitar headstock">
+      <svg id="headstockSvg" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg"></svg>
+    </section>
+
+    <section class="controls">
+      <button id="toggleBtn" class="primary">Start</button>
+      <div class="mode">
+        <label><input type="radio" name="mode" value="auto" checked /> Auto-detect string</label>
+        <label><input type="radio" name="mode" value="manual" /> Pick string:</label>
+        <select id="stringSelect" disabled>
+          <option value="0">6 — Low E (E2)</option>
+          <option value="1">5 — A (A2)</option>
+          <option value="2">4 — D (D3)</option>
+          <option value="3">3 — G (G3)</option>
+          <option value="4">2 — B (B3)</option>
+          <option value="5">1 — High E (E4)</option>
+        </select>
+      </div>
+    </section>
+
+    <footer>
+      <p>Allow microphone access. Works best in a quiet room, close to the guitar.</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
