@@ -300,10 +300,12 @@ function buildHeadstock() {
   // Tuning pegs — 3 left, 3 right, staggered
   // Left side (from top-most peg going down): 6th, 4th, 2nd strings by convention on a 3+3 headstock
   // For simplicity we'll map index 0..5 to pegs and strings.
+  // Bass side (left): low E closest to nut (bottom), then A, then D farthest.
+  // Treble side (right): high E closest to nut (bottom), then B, then G farthest.
   const pegPositions = [
-    { side: "L", y: 60  }, // string 0: low E (6th)
+    { side: "L", y: 170 }, // string 0: low E (6th)
     { side: "L", y: 115 }, // string 1: A (5th)
-    { side: "L", y: 170 }, // string 2: D (4th)
+    { side: "L", y: 60  }, // string 2: D (4th)
     { side: "R", y: 60  }, // string 3: G (3rd)
     { side: "R", y: 115 }, // string 4: B (2nd)
     { side: "R", y: 170 }, // string 5: high E (1st)
@@ -373,8 +375,25 @@ function buildHeadstock() {
     label.textContent = STRINGS[i].name;
     peg.appendChild(label);
 
+    peg.style.cursor = "pointer";
+    peg.addEventListener("click", () => selectString(i));
+
     svg.appendChild(peg);
   });
+}
+
+function selectString(idx) {
+  const manualRadio = document.querySelector('input[name="mode"][value="manual"]');
+  manualRadio.checked = true;
+  els.stringSelect.disabled = false;
+  els.stringSelect.value = String(idx);
+  if (!running) {
+    const s = STRINGS[idx];
+    els.targetNote.textContent = s.name;
+    els.octave.textContent = s.octave;
+    els.targetFreq.textContent = s.freq.toFixed(1);
+    highlightString(idx);
+  }
 }
 
 function stringWidth(i) {
